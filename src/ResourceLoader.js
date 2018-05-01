@@ -40,7 +40,7 @@ export default class ResourceLoader {
 
         if (!isSVG(src) || FEATURES.SUPPORT_SVG_DRAWING) {
             if (this.options.allowTaint === true || isInlineImage(src) || this.isSameOrigin(src)) {
-                return this.addImage(src, src, false);
+                return this.addImage(src, src, this.options.useCORS);
             } else if (!this.isSameOrigin(src)) {
                 if (typeof this.options.proxy === 'string') {
                     this.cache[src] = Proxy(src, this.options).then(src =>
