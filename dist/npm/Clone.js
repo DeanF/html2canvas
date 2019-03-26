@@ -233,7 +233,7 @@ var DocumentCloner = exports.DocumentCloner = function () {
             var clone = node.nodeType === Node.TEXT_NODE ? document.createTextNode(node.nodeValue) : this.createElementClone(node);
 
             var window = node.ownerDocument.defaultView;
-            var style = node instanceof window.HTMLElement ? window.getComputedStyle(node) : null;
+            var style = node instanceof window.HTMLElement || node instanceof window.SVGElement ? window.getComputedStyle(node) : null;
             var styleBefore = node instanceof window.HTMLElement ? window.getComputedStyle(node, ':before') : null;
             var styleAfter = node instanceof window.HTMLElement ? window.getComputedStyle(node, ':after') : null;
 
@@ -288,6 +288,8 @@ var DocumentCloner = exports.DocumentCloner = function () {
                         clone.value = node.value;
                         break;
                 }
+            } else if (node instanceof window.SVGElement && clone instanceof window.SVGElement && style) {
+                (0, _Util.copyCSSStyles)(style, clone);
             }
             return clone;
         }
