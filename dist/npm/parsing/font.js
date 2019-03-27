@@ -21,7 +21,7 @@ var parseFont = exports.parseFont = function parseFont(style) {
     var fontFamily = style.fontFamily;
     var fontSize = style.fontSize;
     var fontStyle = style.fontStyle;
-    var fontVariant = style.fontVariant;
+    var fontVariant = ['normal', 'small-caps'].indexOf(style.fontVariant) > -1 ? style.fontVariant : 'normal';
     var fontWeight = parseFontWeight(style.fontWeight);
 
     return {
